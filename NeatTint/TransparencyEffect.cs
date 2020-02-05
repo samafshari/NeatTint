@@ -16,8 +16,9 @@ namespace NeatTint
             var ps = new PixelShader();
             ps.UriSource = new Uri("pack://application:,,,/NeatTint;component/Transparency.ps");
             this.PixelShader = ps;
-        }
 
+            UpdateValues();
+        }
 
         public Brush Input
         {
@@ -37,5 +38,22 @@ namespace NeatTint
         public static readonly DependencyProperty OpacityProperty =
             DependencyProperty.Register(nameof(Opacity), typeof(double), typeof(TransparencyEffect),
               new UIPropertyMetadata(1.0d, PixelShaderConstantCallback(0)));
+
+        public Color Tint
+        {
+            get { return (Color)GetValue(TintProperty); }
+            set { SetValue(TintProperty, value); }
+        }
+
+        public static readonly DependencyProperty TintProperty =
+            DependencyProperty.Register(nameof(Tint), typeof(Color), typeof(TransparencyEffect),
+              new UIPropertyMetadata(Colors.Red, PixelShaderConstantCallback(1)));
+
+        void UpdateValues()
+        {
+            UpdateShaderValue(InputProperty);
+            UpdateShaderValue(OpacityProperty);
+            UpdateShaderValue(TintProperty);
+        }
     }
 }

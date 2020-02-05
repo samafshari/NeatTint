@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{35B05F24-6779-4E0A-977B-0C235FBC575D}</ProjectGuid>
+    <ProjectGuid>{57E46C08-1908-4C92-B900-D368F7E1DC73}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>NeatTint</RootNamespace>
     <AssemblyName>NeatTint</AssemblyName>
@@ -55,8 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ColorizeEffect.cs" />
     <Compile Include="TransparencyEffect.cs" />
-    <Compile Include="Vars.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +88,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Colorize.ps" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,10 +99,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Colorize.fx" />
+    <Resource Include="icon.ico" />
+    <Resource Include="redcorners_forms_logo3.png" />
+    <Resource Include="transparent.png" />
     <Resource Include="blackcamera%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Transparency.fx" />
+    <Content Include="Transparency.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
