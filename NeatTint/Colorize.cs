@@ -19,7 +19,7 @@ namespace NeatTint
         public float TintR { get; set; } = 1.0f;
         public float TintG { get; set; } = 1.0f;
         public float TintB { get; set; } = 1.0f;
-        public float Strength { get; set; } = 0.7f;
+        public float Strength { get; set; } = 0.5f;
 
         public string InputPath { get; set; }
         public string OutputPath { get; set; }
@@ -61,15 +61,6 @@ namespace NeatTint
             var pixel = ToFloat(bpixel);
             var shaded = _Shade();
             return ToByte(Lerp(pixel, shaded, Strength));
-            //if (Lightness <= -1) return 0;
-            //if (Lightness > 1) return 1;
-
-            //var pixel = ToFloat(bpixel);
-            //var color = Lerp(0.5f, tint, Saturation);
-            //if (Lightness >= 0)
-            //    return ToByte(Blend3(0.0f, color, 1.0f, 2.0f * (1.0f - Lightness) * (Value - 1) + 1));
-
-            //return ToByte(Blend3(0.0f, color, 1.0f, 2.0f * (1.0f + Lightness) * Value - 1));
         }
 
         public Bitmap Work()
@@ -93,15 +84,17 @@ namespace NeatTint
                 Parallel.For(0, heightInPixels, y =>
                 {
                     byte* currentLine = PtrFirstPixel + (y * bmpData.Stride);
-                    for (int x = 0; x < widthInBytes; x = x + bytesPerPixel)
+                    for (int x = 0; x < widthInBytes; x += bytesPerPixel)
                     {
-                        int oldBlue = currentLine[x];
-                        int oldGreen = currentLine[x + 1];
-                        int oldRed = currentLine[x + 2];
+                        int b = currentLine[x];
+                        int g = currentLine[x + 1];
+                        int r = currentLine[x + 2];
 
-                        currentLine[x] = Shade((byte)oldBlue, TintB);
-                        currentLine[x + 1] = Shade((byte)oldGreen, TintG);
-                        currentLine[x + 2] = Shade((byte)oldRed, TintR);
+                        var c = (byte)((float)(r + g + b) * 0.333f);
+
+                        currentLine[x] = Shade((byte)c, TintB);
+                        currentLine[x + 1] = Shade((byte)c, TintG);
+                        currentLine[x + 2] = Shade((byte)c, TintR);
                     }
                 });
 
