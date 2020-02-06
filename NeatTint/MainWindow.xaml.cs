@@ -271,6 +271,7 @@ namespace NeatTint
         {
             fx.Save();
             storage.Save();
+            MessageBox.Show(caption: "Success", messageBoxText: "Save completed.", button: MessageBoxButton.OK);
         }
     }
 }
