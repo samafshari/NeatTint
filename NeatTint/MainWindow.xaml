@@ -5,12 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeatTint"
         mc:Ignorable="d"
-        Title="RedCorners.Forms Colorizer" Height="450" Width="800" Icon="redcorners_forms_logo3.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF2E2E2E">
-    <Grid>
+        Title="RedCorners.Forms Colorizer" Height="394.667" Width="800" Icon="redcorners_forms_logo3.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF2E2E2E">
+    <Grid Drop="Grid_Drop" AllowDrop="True">
         <Grid.Resources>
             <ResourceDictionary>
                 <Style TargetType="TextBox">
                     <Setter Property="Margin" Value="3" />
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="2" />
                 </Style>
             </ResourceDictionary>
         </Grid.Resources>
@@ -20,6 +28,25 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Input:" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Output:" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding InputPath}" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OutputPath}" />
+                    <Button Grid.Row="0" Grid.Column="2" Content="..." x:Name="btnBrowseInput" Click="btnBrowseInput_Click" />
+                    <Button Grid.Row="1" Grid.Column="2" Content="..." x:Name="btnBrowseOutput" Click="btnBrowseOutput_Click" />
+                </Grid>
+
+                <Grid Margin="0,10" Height="1" Background="White" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -34,14 +61,10 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.Resources>
                         <ResourceDictionary>
-                            <Style TargetType="Label">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="HorizontalAlignment" Value="Right" />
-                                <Setter Property="Foreground" Value="White" />
-                            </Style>
                             <Style TargetType="Slider">
                                 <Setter Property="VerticalAlignment" Value="Center" />
                                 <Setter Property="Minimum" Value="0.0" />
@@ -51,28 +74,32 @@
                             </Style>
                         </ResourceDictionary>
                     </Grid.Resources>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Saturation" />
-                    <Label Grid.Row="1" Grid.Column="0" Content="Lightness" />
-                    <Label Grid.Row="2" Grid.Column="0" Content="Value" />
-                    <Label Grid.Row="3" Grid.Column="0" Content="Red" />
-                    <Label Grid.Row="4" Grid.Column="0" Content="Green" />
-                    <Label Grid.Row="5" Grid.Column="0" Content="Blue" />
-                    <Slider Grid.Row="0" Grid.Column="1" Value="{Binding Saturation}" />
-                    <Slider Grid.Row="1" Grid.Column="1" Value="{Binding Lightness}" />
-                    <Slider Grid.Row="2" Grid.Column="1" Value="{Binding Value}" />
-                    <Slider Grid.Row="3" Grid.Column="1" Value="{Binding Red}" />
-                    <Slider Grid.Row="4" Grid.Column="1" Value="{Binding Green}" />
-                    <Slider Grid.Row="5" Grid.Column="1" Value="{Binding Blue}" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="Strength" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Saturation" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Lightness" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Value" />
+                    <Label Grid.Row="4" Grid.Column="0" Content="Red" />
+                    <Label Grid.Row="5" Grid.Column="0" Content="Green" />
+                    <Label Grid.Row="6" Grid.Column="0" Content="Blue" />
+                    
+                    <Slider Grid.Row="0" Grid.Column="1" Value="{Binding Strength}" />
+                    <Slider Grid.Row="1" Grid.Column="1" Value="{Binding Saturation}" />
+                    <Slider Grid.Row="2" Grid.Column="1" Value="{Binding Lightness}" Minimum="-1" />
+                    <Slider Grid.Row="3" Grid.Column="1" Value="{Binding Value}" />
+                    <Slider Grid.Row="4" Grid.Column="1" Value="{Binding Red}" />
+                    <Slider Grid.Row="5" Grid.Column="1" Value="{Binding Green}" />
+                    <Slider Grid.Row="6" Grid.Column="1" Value="{Binding Blue}" />
 
-                    <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Saturation}" />
-                    <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Lightness}" />
-                    <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Value}" />
-                    <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Red}" />
-                    <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Green}" />
-                    <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Blue}" />
+                    <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Strength}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Saturation}" />
+                    <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Lightness}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Value}" />
+                    <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Red}" />
+                    <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Green}" />
+                    <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding Blue}" />
 
-                    <Label Grid.Row="6" Grid.Column="0" Content="Hex:" />
-                    <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Label Grid.Row="7" Grid.Column="0" Content="Hex:" />
+                    <Grid Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -89,12 +116,19 @@
                         <Label Grid.Column="1" Content="Bytes - Red:" />
                         <Label Grid.Column="3" Content="Green:" />
                         <Label Grid.Column="5" Content="Blue:" />
-                        
                     </Grid>
                 </Grid>
+
+                <Grid Margin="0,10" Height="1" Background="White" />
+                
+                <Button Content="Save" Height="40" Width="100" HorizontalAlignment="Right" x:Name="btnSave" Click="btnSave_Click" VerticalContentAlignment="Center" />
             </StackPanel>
 
-            <Image x:Name="img" Grid.Column="0" Width="256" Height="256" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Grid Grid.Column="0" Width="256" Height="256" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,10,0">
+                <Image Source="transparent.png" Opacity="0.1" />
+                <Image x:Name="img" />
+                <Label Visibility="{Binding DropTextVisibility}" Content="Drop Image Here" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
         </Grid>
     </Grid>
 </Window>
