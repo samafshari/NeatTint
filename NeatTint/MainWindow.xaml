@@ -57,16 +57,16 @@
                     <Label Grid.Row="3" Grid.Column="0" Content="Red" />
                     <Label Grid.Row="4" Grid.Column="0" Content="Green" />
                     <Label Grid.Row="5" Grid.Column="0" Content="Blue" />
-                    <Slider Grid.Row="0" Grid.Column="1" Value="{Binding Saturation, Source={x:Reference Name=fx}}" />
-                    <Slider Grid.Row="1" Grid.Column="1" Value="{Binding Lightness, Source={x:Reference Name=fx}}" />
-                    <Slider Grid.Row="2" Grid.Column="1" Value="{Binding Value, Source={x:Reference Name=fx}}" />
+                    <Slider Grid.Row="0" Grid.Column="1" Value="{Binding Saturation}" />
+                    <Slider Grid.Row="1" Grid.Column="1" Value="{Binding Lightness}" />
+                    <Slider Grid.Row="2" Grid.Column="1" Value="{Binding Value}" />
                     <Slider Grid.Row="3" Grid.Column="1" Value="{Binding Red}" />
                     <Slider Grid.Row="4" Grid.Column="1" Value="{Binding Green}" />
                     <Slider Grid.Row="5" Grid.Column="1" Value="{Binding Blue}" />
 
-                    <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Saturation, Source={x:Reference Name=fx}}" />
-                    <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Lightness, Source={x:Reference Name=fx}}" />
-                    <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Value, Source={x:Reference Name=fx}}" />
+                    <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Saturation}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Lightness}" />
+                    <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Value}" />
                     <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Red}" />
                     <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Green}" />
                     <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Blue}" />
@@ -94,11 +94,7 @@
                 </Grid>
             </StackPanel>
 
-            <Image Grid.Column="0" Source="blackcamera@3x.png" Width="256" Height="256" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <!--<Image.Effect>
-                    <local:ColorizeEffect x:Name="fx" />
-                </Image.Effect>-->
-            </Image>
+            <Image x:Name="img" Grid.Column="0" Width="256" Height="256" HorizontalAlignment="Left" VerticalAlignment="Top" />
         </Grid>
     </Grid>
 </Window>

@@ -1,3 +1,5 @@
+//https://stackoverflow.com/questions/4404507/algorithm-for-hue-saturation-adjustment-layer-from-photoshop 
+
 sampler2D input : register(S0);
 float saturation : register(C0);
 float lightness : register(C1);

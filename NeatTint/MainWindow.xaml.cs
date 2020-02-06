@@ -27,81 +27,110 @@ namespace NeatTint
         public void RaisePropertyChanged([CallerMemberName] string m = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(m));
 
+        Colorize fx;
+
+        BitmapImage Image { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+
+            fx = new Colorize
+            {
+                Saturation = 1.0f,
+                Lightness = 0.0f,
+                Value = 0.5f,
+                TintR = 1,
+                TintG = 0,
+                TintB = 0,
+                InputPath = @"E:\Projects\NeatTint\NeatTint\blackcamera@3x.png"
+            };
+            UpdateImage();
         }
 
-        public double Red
+        void UpdateImage()
         {
-            get => fx.Tint.R / 255.0;
+            Image = fx.GetBitmapImage();
+            RaisePropertyChanged(nameof(Image));
+            img.Source = Image;
+        }
+
+        public float Red
+        {
+            get => fx.TintR;
             set
             {
-                fx.Tint = Color.FromRgb((byte)(value * 255.0), fx.Tint.G, fx.Tint.B);
+                fx.TintR = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(RedBytes));
                 RaisePropertyChanged(nameof(Hex));
+                UpdateImage();
             }
         }
         
-        public double Green
+        public float Green
         {
-            get => fx.Tint.G / 255.0;
+            get => fx.TintG;
             set
             {
-                fx.Tint = Color.FromRgb(fx.Tint.R, (byte)(value * 255.0), fx.Tint.B);
+                fx.TintG = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(GreenBytes));
                 RaisePropertyChanged(nameof(Hex));
+                UpdateImage();
             }
         }
 
-        public double Blue
+        public float Blue
         {
-            get => fx.Tint.B / 255.0;
+            get => fx.TintB;
             set
             {
-                fx.Tint = Color.FromRgb(fx.Tint.R, fx.Tint.G, (byte)(value * 255.0));
+                fx.TintB = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(BlueBytes));
                 RaisePropertyChanged(nameof(Hex));
+                UpdateImage();
             }
         }
         
         public int RedBytes
         {
-            get => fx.Tint.R;
+            get => Colorize.ToByte(fx.TintR);
             set
             {
-                fx.Tint = Color.FromRgb((byte)value, fx.Tint.G, fx.Tint.B);
+                fx.TintR = Colorize.ToFloat((byte)value);
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(Red));
                 RaisePropertyChanged(nameof(Hex));
+                UpdateImage();
             }
         }
         
         public int GreenBytes
         {
-            get => fx.Tint.G;
+            get => Colorize.ToByte(fx.TintG);
             set
             {
-                fx.Tint = Color.FromRgb(fx.Tint.R, (byte)value, fx.Tint.B);
+                fx.TintG = Colorize.ToFloat((byte)value);
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(Green));
                 RaisePropertyChanged(nameof(Hex));
+                UpdateImage();
             }
         }
 
         public int BlueBytes
         {
-            get => fx.Tint.B;
+            get => Colorize.ToByte(fx.TintB);
             set
             {
-                fx.Tint = Color.FromRgb(fx.Tint.R, fx.Tint.G, (byte)value);
+                fx.TintB = Colorize.ToFloat((byte)value);
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(Blue));
                 RaisePropertyChanged(nameof(Hex));
+                UpdateImage();
             }
         }
 
@@ -109,7 +138,7 @@ namespace NeatTint
         {
             get
             {
-                var hex = fx.Tint.ToString();
+                var hex = Color.FromRgb((byte)RedBytes, (byte)GreenBytes, (byte)BlueBytes).ToString();
                 return "#" + hex.Substring(3);
             }
             set
@@ -117,7 +146,9 @@ namespace NeatTint
                 try
                 {
                     var color = (Color)ColorConverter.ConvertFromString(value);
-                    fx.Tint = color;
+                    RedBytes = color.R;
+                    GreenBytes = color.G;
+                    BlueBytes = color.B;
                     RaisePropertyChanged();
                     RaisePropertyChanged(nameof(Red));
                     RaisePropertyChanged(nameof(Green));
@@ -125,11 +156,43 @@ namespace NeatTint
                     RaisePropertyChanged(nameof(RedBytes));
                     RaisePropertyChanged(nameof(GreenBytes));
                     RaisePropertyChanged(nameof(BlueBytes));
+                    UpdateImage();
+
                 }
                 catch
                 {
 
                 }
+            }
+        }
+
+        public float Saturation
+        {
+            get => fx.Saturation;
+            set
+            {
+                fx.Saturation = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public float Lightness
+        {
+            get => fx.Lightness;
+            set
+            {
+                fx.Lightness = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public float Value
+        {
+            get => fx.Value;
+            set
+            {
+                fx.Value = value;
+                RaisePropertyChanged();
             }
         }
     }
